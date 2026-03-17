@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
-
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,6 +13,7 @@ import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 })
 export class LoginComponent {
   private auth = inject(Auth);
+  private router = inject(Router);
   loginForm = inject(FormBuilder).group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
@@ -25,6 +26,7 @@ export class LoginComponent {
       signInWithEmailAndPassword(this.auth, email!, password!)
         .then(userCredential => {
           console.log('Login success!', userCredential.user);
+          this.router.navigate(['/dashboard']);
         })
         .catch(error => {
           console.error('Login failed', error.message);
