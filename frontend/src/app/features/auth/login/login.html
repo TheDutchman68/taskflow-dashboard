@@ -1,10 +1,24 @@
-<h2>Login</h2>
-
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <input type="email" formControlName="email" placeholder="email"/>
-    <br /><br />
+  <div>
+    <label>Email</label>
+    <input type="email" formControlName="email" />
+    @if(f.email.errors?.['required']){
+      <p style="color:red">Email required</p>
+    }@if(f.email.errors?.['email']){
+      <p style="color:red">Email must be valid</p>
+    }
+   
+  </div>
 
-    <input type="password" formControlName="password" placeholder="Password" />
-    <br /><br />
-    <button type="submit">Login</button>
+  <div>
+    <label>Parola</label>
+    <input type="password" formControlName="password" />
+    @if(f.password.errors?.['required']){
+      <p style="color:red">Password required</p>
+    }@if(f.password.errors?.['minlength']){
+      <p style="color:red">Min 6 characters</p>
+    }
+  </div>
+
+  <button type="submit">Login</button>
 </form>
